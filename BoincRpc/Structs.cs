@@ -507,7 +507,6 @@ namespace BoincRpc
         public string Name { get; private set; }
         public string WorkunitName { get; private set; }
         public string ProjectUrl { get; private set; }
-
         public string ProjectName { get; set; }
         public int VersionNumber { get; private set; }
         public string PlanClass { get; private set; }
@@ -549,6 +548,15 @@ namespace BoincRpc
         public string GraphicsExecPath { get; private set; }
         public string SlotPath { get; private set; }
         public string Resources { get; private set; }
+
+        public string FriendlyElaspedTime () {
+            return Utils.ToUserFriendlyString(this.ElapsedTime);
+        }
+
+        public string FriendlyEstimatedTimeRemaining()
+        {
+            return Utils.ToUserFriendlyString(this.EstimatedCpuTimeRemaining);
+        }
 
         internal Result(XElement element)
         {
