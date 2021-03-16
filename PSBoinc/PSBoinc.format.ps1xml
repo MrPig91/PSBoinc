@@ -168,21 +168,17 @@
           <TableColumnHeader></TableColumnHeader>
           <TableColumnHeader></TableColumnHeader>
           <TableColumnHeader></TableColumnHeader>
-          <TableColumnHeader></TableColumnHeader>
-          <TableColumnHeader></TableColumnHeader>
           <TableColumnHeader>
             <Label>ReportDeadline</Label>
           </TableColumnHeader>
+          <TableColumnHeader></TableColumnHeader>
           <TableColumnHeader></TableColumnHeader>
         </TableHeaders>
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
               <TableColumnItem>
-                <PropertyName>ProjectUrl</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>WorkunitName</PropertyName>
+                <PropertyName>ProjectName</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>FractionDone</PropertyName>
@@ -195,16 +191,16 @@
                 <FormatString>g</FormatString>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>EstimatedCpuTimeRemaining</PropertyName>
+                <PropertyName>CpuTimeRemaining~</PropertyName>
                 <Alignment>Right</Alignment>
                 <FormatString>g</FormatString>
               </TableColumnItem>
               <TableColumnItem>
-                <ScriptBlock>$_.ReportDeadline.ToLocalTime()</ScriptBlock>
-                <FormatString>G</FormatString>
+                <PropertyName>StatusDescription</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>StatusDescription</PropertyName>
+                <ScriptBlock>$_.ReportDeadline.ToLocalTime()</ScriptBlock>
+                <FormatString>G</FormatString>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
