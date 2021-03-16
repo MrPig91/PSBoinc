@@ -17,7 +17,6 @@ namespace PSBoinc
         [ValidateNotNullOrEmpty]
         public string[] Project { get; set; }
 
-
         protected override void RpcProcessRecord()
         {
             Result[] results = RpcClient.GetResults();
@@ -36,8 +35,7 @@ namespace PSBoinc
             }
 
             foreach (Result result in results){
-                result.ProjectName = Utils.FilterByName(projects, p => p.ProjectName, Project, "Could not find a project with name \"{0}\".", "NoProjectFoundForGivenName", this)
-                    .Select(p => p.ProjectName).First();
+                result.ProjectName = projects.Where(p => p.MasterUrl == result.ProjectUrl).Select(p => p.ProjectName).First();
             }
 
             WriteObject(results, true);
