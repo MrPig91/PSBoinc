@@ -17,22 +17,27 @@ namespace PSBoinc
         [ValidateNotNullOrEmpty]
         public string[] Project { get; set; }
 
+
         protected override void RpcProcessRecord()
         {
             Result[] results = RpcClient.GetResults();
+            Project[] projects = RpcClient.GetProjectStatus();
 
             if (WorkunitName != null)
                 results = Utils.FilterByName(results, r => r.WorkunitName, WorkunitName, "Could not find a task with name \"{0}\".", "NoTaskFoundForGivenName", this);
 
             if (Project != null && results.Length != 0)
             {
-                Project[] projects = RpcClient.GetProjectStatus();
-
                 HashSet<string> masterUrls = new HashSet<string>(
                     Utils.FilterByName(projects, p => p.ProjectName, Project, "Could not find a project with name \"{0}\".", "NoProjectFoundForGivenName", this)
                     .Select(p => p.MasterUrl));
 
                 results = results.Where(r => masterUrls.Contains(r.ProjectUrl)).ToArray();
+            }
+
+            foreach (Result result in results){
+                result.ProjectName = Utils.FilterByName(projects, p => p.ProjectName, Project, "Could not find a project with name \"{0}\".", "NoProjectFoundForGivenName", this)
+                    .Select(p => p.ProjectName).First();
             }
 
             WriteObject(results, true);

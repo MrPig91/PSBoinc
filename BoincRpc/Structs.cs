@@ -507,6 +507,8 @@ namespace BoincRpc
         public string Name { get; private set; }
         public string WorkunitName { get; private set; }
         public string ProjectUrl { get; private set; }
+
+        public string ProjectName { get; set; }
         public int VersionNumber { get; private set; }
         public string PlanClass { get; private set; }
         public DateTimeOffset ReportDeadline { get; private set; }
