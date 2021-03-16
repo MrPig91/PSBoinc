@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
+using System.Collections.Generic;
 
 namespace BoincRpc
 {
@@ -35,6 +36,54 @@ namespace BoincRpc
         public static double ConvertTimeSpanToSeconds(TimeSpan timeSpan)
         {
             return timeSpan.TotalSeconds;
+        }
+
+        //adapted code from http://www.blackbeltcoder.com/Articles/time/creating-a-user-friendly-timespan-string 
+        public static string ToUserFriendlyString(this TimeSpan span)
+        {
+            const int DaysInYear = 365;
+            const int DaysInMonth = 30;
+
+            // Get each non-zero value from TimeSpan component
+            List<string> values = new List<string>();
+
+            // Number of years
+            int days = span.Days;
+            double totaldays = span.TotalDays;
+            if (days >= DaysInYear)
+            {
+                double years = (days / DaysInYear);
+                return $"{Math.Round(years, 2).ToString()} years";
+            }
+            // Number of months
+            if (days >= DaysInMonth)
+            {
+                double months = (days / DaysInMonth);
+                return $"{Math.Round(months, 2).ToString()} months";
+            }
+            // Number of days
+            if (days >= 1)
+                return $"{Math.Round(totaldays, 2)} days";
+            // Number of hours
+            if (span.Hours >= 1)
+                return $"{Math.Round(span.TotalHours, 2)} hours";
+            // Number of minutes
+            if (span.Minutes >= 1)
+                return $"{Math.Round(span.TotalMinutes, 2)} minutes";
+            if (span.Seconds >= 1 || values.Count == 0)
+                return $"{span.Seconds} seconds";
+            return "Unknown";
+        }
+
+        /// <summary>
+        /// Constructs a string description of a time-span value.
+        /// </summary>
+        /// <param name="value">The value of this item</param>
+        /// <param name="description">The name of this item (singular form)</param>
+        private static string CreateValueString(int value, string description)
+        {
+            return String.Format("{0:#,##0} {1}",
+                value, (value == 1) ? description : String.Format("{0}s", description));
         }
     }
 
