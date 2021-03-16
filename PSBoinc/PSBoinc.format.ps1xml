@@ -167,11 +167,15 @@
         <TableHeaders>
           <TableColumnHeader></TableColumnHeader>
           <TableColumnHeader></TableColumnHeader>
-          <TableColumnHeader></TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ElaspedTime</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>CpuTimeRemaining~</Label>
+          </TableColumnHeader>
           <TableColumnHeader>
             <Label>ReportDeadline</Label>
           </TableColumnHeader>
-          <TableColumnHeader></TableColumnHeader>
           <TableColumnHeader></TableColumnHeader>
         </TableHeaders>
         <TableRowEntries>
@@ -186,21 +190,21 @@
                 <FormatString>P2</FormatString>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>ElapsedTime</PropertyName>
-                <Alignment>Right</Alignment>
-                <FormatString>g</FormatString>
+                <ScriptBlock>
+                  $_.FriendlyElaspedTime()
+                </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>CpuTimeRemaining~</PropertyName>
-                <Alignment>Right</Alignment>
-                <FormatString>g</FormatString>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>StatusDescription</PropertyName>
+                <ScriptBlock>
+                  $_.FriendlyEstimatedTimeRemaining()
+                </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
                 <ScriptBlock>$_.ReportDeadline.ToLocalTime()</ScriptBlock>
                 <FormatString>G</FormatString>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>StatusDescription</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
